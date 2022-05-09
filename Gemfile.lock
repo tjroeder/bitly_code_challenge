@@ -1,11 +1,17 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    csv (3.2.3)
+    json (2.6.1)
+    optparse (0.2.0)
 
 PLATFORMS
   universal-darwin-20
 
 DEPENDENCIES
+  csv
+  json
+  optparse
 
 BUNDLED WITH
    2.2.27

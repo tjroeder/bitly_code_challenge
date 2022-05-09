@@ -2,4 +2,6 @@
 
 source "https://rubygems.org"
 
-# gem "rails"
+gem 'json'
+gem 'csv'
+gem 'optparse'
