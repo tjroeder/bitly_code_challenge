@@ -4,6 +4,7 @@ GEM
     csv (3.2.3)
     json (2.6.1)
     optparse (0.2.0)
+    uri (0.11.0)
 
 PLATFORMS
   universal-darwin-20
@@ -12,6 +13,7 @@ DEPENDENCIES
   csv
   json
   optparse
+  uri
 
 BUNDLED WITH
    2.2.27
