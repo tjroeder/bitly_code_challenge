@@ -1,6 +1,6 @@
 require 'rspec'
 require_relative '../lib/bitlink'
-require_relative '../lib/file_io'
+require_relative '../lib/input_output'
 
 RSpec.describe Bitlink do
   describe 'object' do
@@ -19,7 +19,7 @@ RSpec.describe Bitlink do
       expect(bitlink).to be_a(Bitlink)
     end
 
-    it 'has a #url attribute and data type' do
+    it 'has a #uri attribute and data type' do
       expect(bitlink).to have_attributes(uri: URI('http://bit.ly/2kkAHNs'))
       expect(bitlink.uri).to be_a(URI::HTTP)
       expect(bitlink.uri.scheme).to eq('http')
@@ -27,9 +27,9 @@ RSpec.describe Bitlink do
       expect(bitlink.uri.path).to eq('/2kkAHNs')
     end
 
-    it 'has a #id attribute and data type' do
-      expect(bitlink).to have_attributes(id: '2kkAHNs')
-      expect(bitlink.id).to be_a(String)
+    it 'has a #domain_hash attribute and data type' do
+      expect(bitlink).to have_attributes(domain_hash: 'bit.ly/2kkAHNs')
+      expect(bitlink.domain_hash).to be_a(String)
     end
 
     it 'has a #user_agent attribute and data type' do
@@ -56,42 +56,54 @@ RSpec.describe Bitlink do
   describe 'class methods' do
     let(:encode_path) { './spec/fixtures/encodes.csv' }
     let(:decode_path) { './spec/fixtures/decodes.json' }
-    let(:bitlink_files) { FileIO.new(encode_path, decode_path) }
-    let!(:bitlinks) do 
+    let!(:input_output) { 
       Bitlink.class_variable_set(:@@id_hashes, {})
-      bitlink_files.decode.map { |data| Bitlink.new(data) }
-    end
-    
-    describe '.id_hashes' do
-      it 'returns a class variable and hash data type' do
-        expect(Bitlink.id_hashes).to be_a(Hash)  
-        expect(Bitlink.id_hashes.count).to eq(3)
-        expect(Bitlink.id_hashes.keys).to eq(['2kkAHNs', '2kJO0qS', '3MgVNnZ'])
-        expect(Bitlink.id_hashes['2kkAHNs'].count).to eq(2)
-        expect(Bitlink.id_hashes['2kJO0qS'].count).to eq(1)
-        expect(Bitlink.id_hashes['3MgVNnZ'].count).to eq(1)
-      end
+      InputOutput.new(encode_path, decode_path, 2021) 
+    }
 
-      it 'does not return a id if there are no Bitlinks' do
-        expect(Bitlink.id_hashes.include?('no_id')).to eq(false)
-      end
-    end
-    
     describe '.count_id_clicks_for_year' do
-      it 'returns a count of clicks for a valid id and year' do
-        expect(Bitlink.count_id_clicks_for_year('2kkAHNs', 2021)).to eq(1)
-      end
-      
-      it 'returns a count of clicks for a valid id and non valid year' do
-        expect(Bitlink.count_id_clicks_for_year('2kkAHNs', 2000)).to eq(0)
-      end
-      
-      it 'returns a count of clicks for a non valid id and valid year' do
-        expect(Bitlink.count_id_clicks_for_year('no_id_here', 2021)).to eq(0)
+      context 'valid parameters' do
+        it 'returns single count of clicks for valid domain, hash and year' do
+          count = Bitlink.count_id_clicks_for_year('bit.ly', '2kJO0qS', 2021)
+          expect(count).to eq(1)
+        end
+
+        it 'returns multiple count of clicks for valid domain, hash and year' do
+          count = Bitlink.count_id_clicks_for_year('bit.ly', '2kkAHNs', 2021)
+          expect(count).to eq(2)
+        end
       end
 
-      it 'returns a count of clicks for a non valid id and year' do
-        expect(Bitlink.count_id_clicks_for_year('no_id_here', 2000)).to eq(0)
+      context 'invalid parameters' do
+        it 'returns count of clicks for valid domain, hash and invalid year' do
+          count = Bitlink.count_id_clicks_for_year('bit.ly', '2kkAHNs', 2000)
+          expect(count).to eq(0)
+        end
+        
+        it 'returns count of clicks for valid domain, invalid hash and year' do
+          count = Bitlink.count_id_clicks_for_year('bit.ly', 'bad_hash', 2000)
+          expect(count).to eq(0)
+        end
+
+        it 'returns count of clicks for valid domain and year, invalid hash' do
+          count = Bitlink.count_id_clicks_for_year('bit.ly', 'bad_hash', 2021)
+          expect(count).to eq(0)
+        end
+
+        it 'returns count of clicks for valid hash, invalid domain and year' do
+          count = Bitlink.count_id_clicks_for_year('bad_dom', '2kkAHNs', 2000)
+          expect(count).to eq(0)
+        end
+
+        it 'returns count of clicks for valid hash and year, invalid domain' do
+          count = Bitlink.count_id_clicks_for_year('bad_dom', '2kkAHNs', 2021)
+          expect(count).to eq(0)
+        end
+
+        it 'returns count of clicks for invalid domain, hash and year' do
+          count = Bitlink.count_id_clicks_for_year('bad_dom', 'bad_hash', 2000)
+          expect(count).to eq(0)
+        end
       end
     end
   end
