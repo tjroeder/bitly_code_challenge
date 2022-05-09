@@ -17,6 +17,6 @@ class FileIO
   # Read the JSON encode and save as Array object data
   def read_json(path)
     file = File.read(path)
-    JSON.parse(file)
+    JSON.parse(file, symbolize_names: true)
   end
 end
