@@ -17,7 +17,7 @@ begin
   
   puts bitlinks.output_json(sorted_counts)
 
-# Rescue from any parse errors or file read/open errors
+# Rescue from any missing argument, parse or file read/open errors
 rescue OptionParser::MissingArgument => e
   puts %(OptionParser::MissingArgument: %s) % e.message
   exit
