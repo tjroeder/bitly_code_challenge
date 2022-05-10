@@ -9,10 +9,10 @@
 - <a href="#design-decisions">Design Decisions</a>
 
 ## Problem Statement
-Calculate the number of clicks from 2021 for each record in the encode.csv data set.
+Calculate the number of clicks from 2021 for each record in the `encode.csv` data set.
 
 ## Task 
-Create a program that can be run from the command line, and output the array of Bitlinks sorted in descending order by click count. The sorted array of JSON objects contain the long URL as the key and the click count as the value. 
+Create a program that can be run from the command line, and output the array of Bitlinks sorted in descending order by click count. The sorted array of `JSON` objects contain the long URL as the key and the click count as the value. 
 
 <details>
 <summary>Output Format</summary>
@@ -69,6 +69,7 @@ ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [arm64-darwin20]
 </details>
 
 5. Verify that Bundler is installed `$ bundle -v`, if Bundler is not installed `$ gem install bundler`.
+
 <details>
 <summary>Terminal Example</summary>
 
@@ -79,6 +80,7 @@ Bundler version 2.2.27
 </details>
 
 6. Run Bundler to install all dependencies `$ bundle`.
+
 <details>
 <summary>Terminal Example</summary>
 
@@ -97,6 +99,7 @@ Use `bundle info [gemname]` to see where a bundled gem is installed.
 </details>
 
 7. Run the application by using the Ruby command along with the `find_yearly_clicks.rb` file and three CL arguments and their respective options flag. The `-h` or `--help` flag can be used to display usage of all options flags. All option flags are required.
+
 <details>
 <summary>Terminal Example</summary>
 
@@ -112,7 +115,8 @@ Usage: find_yearly_clicks.rb [options]
 ```
 </details>
 
-8. To run all files in the RSpec testing suite `$ rspec`.
+8. To run all files in the `RSpec` testing suite `$ rspec`.
+
 <details>
 <summary>RSpec Output</summary>
 
@@ -196,6 +200,7 @@ Finished in 0.01447 seconds (files took 0.33795 seconds to load)
 </details>
 
 9. To run the application and return the requested bitlink click count for 2021.
+
 <details>
 <summary>Terminal Example</summary>
 
@@ -240,3 +245,4 @@ Bitlink Count Output to Console for 2021.
 3. `CliParser` class to verify all arguments are provided and to output an error if not. Also, verifies that the year is given in a four digit format.
 4. `InputOutput` class for reading in encode and decode files, parsing and creating the Bitlink instances, and packaging the count for each link for the given year, than output to `STDOUT` as JSON.
 5. `find_yearly_clicks` run file to accept the CL arguments, read and parse the files, create Bitlinks for storing file data, than return the calculated counts for each Bitlink for the given year. Also, will rescue from argument errors when they are missing, invalid format, or the directory/file doesn't exist than output to `STDERR`.
+6. `RSpec` testing framework is utilized for unit and integration tests. Edge case testing is included where needed. 
