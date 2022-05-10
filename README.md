@@ -7,7 +7,6 @@
 - <a href="#installation-guide">Installation Guide</a>
 - <a href="#design-decisions">Design Decisions</a>
 
-
 ## Problem Statement
 Calculate the number of clicks from 2021 for each record in the encode.csv data set.
 
@@ -18,6 +17,7 @@ Create a program that can be run from the command line, and output the array of 
 ```json
 [{"LONG_URL": count}, {"LONG_URL": count}]
 ```
+
 ### Example Output Format
 ```json
 [
@@ -29,34 +29,39 @@ Create a program that can be run from the command line, and output the array of 
   }
 ]
 ```
+
 ## Versions and Dependencies
-- Ruby 2.7.2
-- Bundler 2.2.27
+- `Ruby 2.7.2`
+- `Bundler 2.2.27`
+
 ### Gems/Standard Library Components Utilized
-- CSV 3.2.3
-- JSON 2.6.1
-- OptParse 0.2.0
-- RSpec 3.11.0
-- URI 0.11.0
+- `CSV 3.2.3`
+- `JSON 2.6.1`
+- `OptParse 0.2.0`
+- `RSpec 3.11.0`
+- `URI 0.11.0`
 
 Full dependency list can be found in `Gemfile.lock`
 
 Incompatabilities could occur if a different versions are used.
+
 ## Installation Guide
 This install guide is for MacOS or other *nix systems.
 1. Open your terminal, and navigate to directory of choice.
 2. Clone this repository `$ git clone git@github.com:tjroeder/bitly_code_challenge.git`
 3. Change directories to the newly cloned directory `$ cd bitly_code_challenge`
-4. Verify that you have the correct version of Ruby, `$ ruby -v`. If you do not have the correct version of Ruby [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-macos) should be able to assist with installing just Ruby.
+4. Verify that you have the correct version of Ruby, `$ ruby -v`. If you do not have the correct version of Ruby or it is not installed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-macos) should be able to assist with installing/upgrading Ruby with Rbenv.
 ```shell
 $ ruby -v
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [arm64-darwin20]
 ```
+
 5. Verify that Bundler is installed `$ bundle -v`, if Bundler is not installed `$ gem install bundler`.
 ```shell
 $ bundle -v
 Bundler version 2.2.27
 ```
+
 6. Run Bundler to install all dependencies `$ bundle`
 ```shell
 $ bundle
@@ -70,6 +75,7 @@ Installing optparse 0.2.0
 Bundle complete! 2 Gemfile dependencies, 3 gems now installed.
 Use `bundle info [gemname]` to see where a bundled gem is installed.
 ```
+
 7. Run the application by using the Ruby command along with the `find_yearly_clicks.rb` file and three CL arguments and their respective options flag. The `-h` or `--help` flag can be used to display usage of all options flags. All option flags are required.
 ```shell
 $ ruby ./lib/find_yearly_clicks.rb -h
@@ -81,10 +87,12 @@ Usage: find_yearly_clicks.rb [options]
 
     -h, --help                       Show this message
 ```
+
 8. To run the application and return the requested bitlink click count for 2021.
 ```shell
 $ ruby ./lib/find_yearly_clicks.rb --encode_path ./data/encodes.csv --decode_path ./data/decodes.json --year 2021
 ```
+
 ### Bitlink Count Output to Console for 2021:
 ```json
 [
