@@ -2,34 +2,32 @@ require 'date'
 require 'uri'
 require 'ipaddr'
 
+# Bitlink class with all link log information
 class Bitlink
-  attr_reader   :uri, 
-                :id,
-                :user_agent, 
-                :timestamp, 
-                :referrer, 
+  attr_reader   :uri,
+                :domain_hash,
+                :user_agent,
+                :timestamp,
+                :referrer,
                 :remote_ip
   @@id_hashes = {}
 
   def initialize(data)
     @uri             = URI(data[:bitlink])
-    @id              = @uri.path.delete_prefix('/')
+    @domain_hash     = @uri.host + @uri.path
     @user_agent      = data[:user_agent]
     @timestamp       = DateTime.strptime(data[:timestamp])
     @referrer        = data[:referrer]
     @remote_ip       = IPAddr.new(data[:remote_ip])
-    @@id_hashes[@id] ||= []
-    @@id_hashes[@id] << self
-  end
-
-  # Return memoized bitlinks by id hashes
-  def self.id_hashes
-    @@id_hashes
+    @@id_hashes[@domain_hash] ||= []
+    @@id_hashes[@domain_hash] << self
   end
 
   # Return count of an id for a given year
-  def self.count_id_clicks_for_year(id_hash, year)
-    return 0 unless @@id_hashes.key?(id_hash)
-    @@id_hashes[id_hash].count { |log| log.timestamp.year == year }
+  def self.count_id_clicks_for_year(domain, hash, year)
+    sel_domain_hash = "#{domain}/#{hash}"
+
+    return 0 unless @@id_hashes.key?(sel_domain_hash)
+    @@id_hashes[sel_domain_hash].count { |log| log.timestamp.year == year }
   end
 end
