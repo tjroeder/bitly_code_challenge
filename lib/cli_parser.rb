@@ -42,7 +42,7 @@ class CliParser
 
   # Check that required filepaths and year are given
   def check_paths_and_year
-    path_options = { 
+    path_options = {
                      encode_path: '--encode_path', 
                      decode_path: '--decode_path',
                      year: '--year'
