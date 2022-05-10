@@ -111,7 +111,7 @@ $ ruby ./lib/find_yearly_clicks.rb --encode_path ./data/encodes.csv --decode_pat
 
 ## Design Decisions
 1. Built for readability, SRP, adaptability to change to different files encode, and decode files or years.
-2. Created `Bitlink` class to hold all JSON object data as instances. The Bitlink class memoizes all Bitlinks by `domain/hash` for counting quickly.
-3. Created `CliParser` class to verify all arguments are provided and to output an error if not. Also, verifies that the year is given in a four digit format.
-4. Created `InputOutput` class for reading in encode and decode files, parsing and creating the Bitlink instances, and packaging the count for each link for the given year, than output to `STDOUT` as JSON.
-5. Created `find_yearly_clicks` run file to accept the CL arguments, read and parse the files, create Bitlinks for storing file data, than return the calculated counts for each Bitlink for the given year. Also, will rescue from argument errors when they are missing, invalid format, or the directory/file doesn't exist than output to `STDERR`.
+2. `Bitlink` class to hold all JSON object data as instances. The Bitlink class memoizes all Bitlinks by `domain/hash` for counting quickly.
+3. `CliParser` class to verify all arguments are provided and to output an error if not. Also, verifies that the year is given in a four digit format.
+4. `InputOutput` class for reading in encode and decode files, parsing and creating the Bitlink instances, and packaging the count for each link for the given year, than output to `STDOUT` as JSON.
+5. `find_yearly_clicks` run file to accept the CL arguments, read and parse the files, create Bitlinks for storing file data, than return the calculated counts for each Bitlink for the given year. Also, will rescue from argument errors when they are missing, invalid format, or the directory/file doesn't exist than output to `STDERR`.
