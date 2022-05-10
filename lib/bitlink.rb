@@ -2,12 +2,13 @@ require 'date'
 require 'uri'
 require 'ipaddr'
 
+# Bitlink class with all link log information
 class Bitlink
-  attr_reader   :uri, 
+  attr_reader   :uri,
                 :domain_hash,
-                :user_agent, 
-                :timestamp, 
-                :referrer, 
+                :user_agent,
+                :timestamp,
+                :referrer,
                 :remote_ip
   @@id_hashes = {}
 

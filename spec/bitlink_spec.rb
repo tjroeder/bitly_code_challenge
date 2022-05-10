@@ -56,10 +56,10 @@ RSpec.describe Bitlink do
   describe 'class methods' do
     let(:encode_path) { './spec/fixtures/encodes.csv' }
     let(:decode_path) { './spec/fixtures/decodes.json' }
-    let!(:input_output) { 
+    let!(:input_output) do
       Bitlink.class_variable_set(:@@id_hashes, {})
-      InputOutput.new(encode_path, decode_path, 2021) 
-    }
+      InputOutput.new(encode_path, decode_path, 2021)
+    end
 
     describe '.count_id_clicks_for_year' do
       context 'valid parameters' do
